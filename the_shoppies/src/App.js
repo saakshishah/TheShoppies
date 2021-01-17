@@ -7,9 +7,9 @@ const App = () => {
   const buttonsList = {};
   const [query, setQuery] = useState("");
   const [list, setList] = useState(initialList);
-  const [button, setButton] = useState(buttonsList);
+  const [button] = useState(buttonsList);
 
-  const url = query && `http://www.omdbapi.com/?s=${query}&apikey=3da302e6`;
+  const url = query && `http://www.omdbapi.com/?s=${query}&apikey=${process.env.REACT_APP_API_KEY}`;
 
   const { status, data, error } = useFetch(url);
 
@@ -75,21 +75,26 @@ const App = () => {
               </div>
             )}
             {status === "fetched" && (
+              
               <>
                 <div class="mt-5 font-bold text-lg mb-5 text-green-500">
                   {" "}
                   Search Results For "{query}"{" "}
                 </div>
-                {data.Response === "False" && (
-                  <div> No articles found! :( </div>
+                {data.Error === "Movie not found!" && (
+                  <div> {data.Error} Try Again! </div>
                 )}
-                {movies.map((movie, index) => (
+                
+                {data.Error === "Too many results." && (
+                  <div> {data.Error} Try Again! </div>
+                )}
+
+                {data.Response === "True" && movies.map((movie, index) => (
                   <div
                     class="bg-green-50 flex justify-between items-center mb-4 font-medium pl-3 "
                     key={index}
                   >
-                    {movie.Title} year: {movie.Year}
-                    {console.log(list.length)}
+                    {movie.Title} ({movie.Year})
                     <button
                       class="disabled:opacity-50 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 active:bg-green-700"
                       onClick={() => {
