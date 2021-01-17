@@ -9,7 +9,7 @@ const App = () => {
   const [list, setList] = useState(initialList);
   const [button] = useState(buttonsList);
 
-  const url = query && `http://www.omdbapi.com/?s=${query}&apikey=${process.env.REACT_APP_API_KEY}`;
+  const url = query && `https://www.omdbapi.com/?s=${query}&apikey=${process.env.REACT_APP_API_KEY}`;
 
   const { status, data, error } = useFetch(url);
 
