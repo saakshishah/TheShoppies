@@ -70,26 +70,25 @@ const App = () => {
             )}
             {status === "error" && <div>{error}</div>}
             {status === "fetching" && (
-              <div class="rounded-full animate-spin w-5 h-5 border-2 border-black">
+              <div class="round animate-spin w-5 h-5 border-2 border-black mt-5">
                 {" "}
               </div>
             )}
             {status === "fetched" && (
               <>
-                <div class="mt-5"> Search results for {query} </div>
+                <div class="mt-5 font-bold text-lg mb-5 text-green-500">
+                  {" "}
+                  Search Results For "{query}"{" "}
+                </div>
                 {data.Response === "False" && (
                   <div> No articles found! :( </div>
                 )}
                 {movies.map((movie, index) => (
-                  <div className="movie" key={index}>
-                    <a
-                      target="_blank"
-                      href={movie.Poster}
-                      rel="noopener noreferrer"
-                    >
-                      {movie.Title}
-                    </a>{" "}
-                    year: {movie.Year}
+                  <div
+                    class="bg-green-50 flex justify-between items-center mb-4 font-medium pl-3 "
+                    key={index}
+                  >
+                    {movie.Title} year: {movie.Year}
                     {console.log(list.length)}
                     <button
                       class="disabled:opacity-50 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 active:bg-green-700"
@@ -108,10 +107,18 @@ const App = () => {
             )}
           </div>
           <div>
+            <div class="mt-5 font-bold text-green-500 text-lg mb-5">
+              {" "}
+              Nominations:{" "}
+            </div>
             {list.map((item, index) => (
-              <div className="movie" key={index}>
+              <div
+                class="bg-green-50 flex justify-between items-center mb-4"
+                key={index}
+              >
                 {item.name}
                 <button
+                  class=" py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-red-500 active:bg-red-700"
                   onClick={() => removeNomination(item.imdbID, item.Title)}
                 >
                   Remove
@@ -122,69 +129,6 @@ const App = () => {
         </div>
       </div>
     </div>
-
-    // <div className="App">
-    //   <header> OMDB Search </header>
-    //   <form className="Form" onSubmit={handleSubmit}>
-    //     <input
-    //       type="text"
-    //       autoFocus
-    //       autoComplete="off"
-    //       name="search"
-    //       placeholder="Movie Title"
-    //     />
-    //     <button> Search </button>
-    //   </form>
-    //   <main>
-    //     {status === "idle" && (
-    //       <div> Let's get started by searching for a movie! </div>
-    //     )}
-    //     {status === "error" && <div>{error}</div>}
-    //     {status === "fetching" && <div className="loading"></div>}
-    //     {status === "fetched" && (
-    //       <>
-    //         <div className="query"> Search results for {query} </div>
-    //         {movies.length === 0 && <div> No articles found! :( </div>}
-    //         {movies.map((movie, index) => (
-    //           <div className="movie" key={index}>
-    //             <a
-    //               target="_blank"
-    //               href={movie.Poster}
-    //               rel="noopener noreferrer"
-    //             >
-    //               {movie.Title}
-    //             </a>{" "}
-    //             year: {movie.Year}
-    //             {console.log(list.length)}
-    //             <button
-    //               class="disabled:opacity-50 py-2 px-4 font-semibold rounded-lg shadow-md text-white bg-green-500 hover:bg-green-700"
-    //               onClick={() => {
-    //                 list.length <= 4
-    //                   ? addNomination(movie.imdbID, movie.Title)
-    //                   : alert("5 Nominations Reached");
-    //               }}
-    //               disabled={button[movie.imdbID]}
-    //             >
-    //               Add{" "}
-    //             </button>
-    //           </div>
-    //         ))}
-    //       </>
-    //     )}
-    //   </main>
-    //   <div>
-    //     <ul>
-    //       {list.map((item, index) => (
-    //         <li key={index}>
-    //           {item.name}
-    //           <button onClick={() => removeNomination(item.imdbID, item.Title)}>
-    //             Remove
-    //           </button>
-    //         </li>
-    //       ))}
-    //     </ul>
-    //   </div>
-    // </div>
   );
 };
 
